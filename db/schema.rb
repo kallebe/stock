@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_31_011926) do
+ActiveRecord::Schema.define(version: 2021_07_31_014033) do
 
   create_table "local_armazenamentos", force: :cascade do |t|
     t.string "nome", limit: 20
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["nome"], name: "index_local_armazenamentos_on_nome", unique: true
   end
 
   create_table "movimentacaos", force: :cascade do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_07_31_011926) do
     t.string "nome", limit: 20
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["nome"], name: "index_produtos_on_nome", unique: true
   end
 
   add_foreign_key "movimentacaos", "local_armazenamentos"
