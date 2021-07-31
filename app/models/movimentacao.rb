@@ -23,13 +23,13 @@ class Movimentacao < ApplicationRecord
   def allowed_type_values
     return if tipo == 'E' || tipo == 'S'
 
-    errors.add :tipo, 'O tipo de movimentação informado é inválido'
+    errors.add :tipo, 'O tipo de movimentação informado é inválido!'
   end
 
   def available_stock
     return unless tipo == 'S' && quantidade > products_in_stock
 
-    errors.add :quantidade, 'A quantidade informada é superior a quantidade em estoque'
+    errors.add :quantidade, 'A quantidade informada é superior a quantidade em estoque.'
   end
 
   private

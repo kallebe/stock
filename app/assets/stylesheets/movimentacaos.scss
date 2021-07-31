@@ -1,0 +1,42 @@
+// Place all the styles related to the movimentacaos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.container { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: white;
+}
+
+.stock-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+
+  div + div {
+    margin-top: 7px;
+  }
+}
+
+.storage-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 7px;
+  padding: 2rem;
+
+  h2 {
+    margin: 0 0 1rem 0;
+    color: #2c91e6;
+  }
+}
+
+table {
+  th {
+    text-align: start;
+  }
+}
