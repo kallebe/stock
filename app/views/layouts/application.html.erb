@@ -11,6 +11,20 @@
   </head>
 
   <body>
+    <div id="errors_messages_container">
+      <% p flash %>
+      <% flash[:notice]&.each do |msg| %>
+        <div class='error_card'>
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
     <%= yield %>
+
+    <script>
+      let errorsContainer = document.getElementById('errors_messages_container');
+
+      setTimeout(() => errorsContainer.innerHTML = '', 6000);
+    </script>
   </body>
 </html>

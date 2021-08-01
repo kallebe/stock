@@ -13,6 +13,8 @@ class MovimentacaosController < ApplicationController
 
     order_csv
     create_from_csv
+
+    redirect_to root_path, notice: @error_messages
   end
 
   private
@@ -43,7 +45,7 @@ class MovimentacaosController < ApplicationController
 
     # Create Storage if it doesn't exist
     storage ||= LocalArmazenamento.create(nome: nome)
-    @error_messages += storage.errors.full_messages unless storage.valid?
+    @error_messages += storage.errors.map(&:message) unless storage.valid?
 
     storage
   end
@@ -53,7 +55,7 @@ class MovimentacaosController < ApplicationController
 
     # Create Product if it doesn't exist
     product ||= Produto.create(nome: nome)
-    @error_messages += product.errors.full_messages unless product.valid?
+    @error_messages += product.errors.map(&:message) unless product.valid?
 
     product
   end
@@ -66,7 +68,7 @@ class MovimentacaosController < ApplicationController
       tipo: type,
       quantidade: amount
     )
-    @error_messages += movement.errors.full_messages unless movement.valid?
+    @error_messages += movement.errors.map(&:message) unless movement.valid?
 
     movement
   end
