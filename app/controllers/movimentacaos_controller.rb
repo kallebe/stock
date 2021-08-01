@@ -45,7 +45,7 @@ class MovimentacaosController < ApplicationController
 
     # Create Storage if it doesn't exist
     storage ||= LocalArmazenamento.create(nome: nome)
-    @error_messages += storage.errors.map(&:message) unless storage.valid?
+    @error_messages += storage.errors.map(&:message)
 
     storage
   end
@@ -55,7 +55,7 @@ class MovimentacaosController < ApplicationController
 
     # Create Product if it doesn't exist
     product ||= Produto.create(nome: nome)
-    @error_messages += product.errors.map(&:message) unless product.valid?
+    @error_messages += product.errors.map(&:message)
 
     product
   end
@@ -68,7 +68,7 @@ class MovimentacaosController < ApplicationController
       tipo: type,
       quantidade: amount
     )
-    @error_messages += movement.errors.map(&:message) unless movement.valid?
+    @error_messages += movement.errors.map(&:message)
 
     movement
   end
