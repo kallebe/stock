@@ -1,5 +1,6 @@
 class LocalArmazenamento < ApplicationRecord
-  has_many :movimentacaos
+  has_many :movimentacaos, dependent: :delete_all
+  has_many :produtos, through: :movimentacaos
 
   validates :nome, presence: { message: 'Nome do local de armazenamento deve ser informado.' }
   validates :nome, uniqueness: true

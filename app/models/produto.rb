@@ -1,5 +1,6 @@
 class Produto < ApplicationRecord
-  has_many :movimentacaos
+  has_many :movimentacaos, dependent: :delete_all
+  has_many :local_armazenamentos, through: :movimentacaos
 
   validates :nome, presence: { message: 'Nome do produto deve ser informado.' }
   validates :nome, uniqueness: true

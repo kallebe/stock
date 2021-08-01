@@ -11,9 +11,9 @@
   <h2>Locais de armazenamento</h2>
 
   <div class='stock-container'>
-    <% @armazenamento_mov.each do |armazenamento| %>
+    <% @storages.each do |armazenamento| %>
       <div class='storage-container'>
-        <h2><%= armazenamento.first.nome %></h2>
+        <h2><%= armazenamento.nome %></h2>
 
         <table>
           <thead>
@@ -23,10 +23,10 @@
             </tr>
           </thead>
           <tbody>
-            <% armazenamento.first.each do |mov| %>
+            <% products_in_stock(armazenamento).each do |product| %>
               <tr>
-                <td><%= mov.product.nome %></td>
-                <td><%= mov.quantidade %></td>
+                <td><%= product[:nome] %></td>
+                <td><%= product[:quantidade] %></td>
               </tr>
             <% end %>
           </tbody>

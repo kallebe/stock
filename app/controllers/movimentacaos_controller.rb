@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
+# MovimentacaosController
 class MovimentacaosController < ApplicationController
   require 'csv'
 
   def index
-    # !Corrigir dados passados para a view
-    @armazenamento_mov = Movimentacao.all.group_by(&:local_armazenamento).transform_values(&:flatten)
+    @storages = LocalArmazenamento.all
   end
 
   def create
