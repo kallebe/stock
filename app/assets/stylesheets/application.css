@@ -25,6 +25,11 @@ body {
   min-height: 100vh;
 }
 
+::selection {
+  background-color: #2c91e6;
+  color: white;
+}
+
 body * {
   box-sizing: border-box;
 }

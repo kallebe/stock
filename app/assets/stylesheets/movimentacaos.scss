@@ -6,16 +6,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 60%;
+  margin: 0 auto;
 }
 
-h1 {
+h1, h2 {
   color: white;
+}
+
+h2 {
+  align-self: flex-start;
 }
 
 .stock-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
-  width: 60%;
 
   div + div {
     margin-top: 7px;

@@ -1,6 +1,15 @@
 <div class='container'>
   <h1>Sistema de estoque</h1>
 
+  <h2>Inserir movimentações</h2>
+
+  <%= form_with url: create_movimentacao_path do |form| %>
+    <%= form.file_field :movimentacao_csv, accept: '.csv', required: true %>
+    <%= form.submit 'Cadastrar movimentações' %>
+  <% end %>
+
+  <h2>Locais de armazenamento</h2>
+
   <div class='stock-container'>
     <div class='storage-container'>
       <h2>Brasília</h2>
