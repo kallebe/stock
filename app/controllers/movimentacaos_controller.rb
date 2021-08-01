@@ -2,11 +2,13 @@ class MovimentacaosController < ApplicationController
   require 'csv'
 
   def index
-    @movimentacoes = Movimentacao.all
+    # !Corrigir dados passados para a view
+    @armazenamento_mov = Movimentacao.all.group_by(&:local_armazenamento).transform_values(&:flatten)
   end
 
   def create
     @error_messages = []
+
     order_csv
     create_from_csv
   end
@@ -14,25 +16,56 @@ class MovimentacaosController < ApplicationController
   private
 
   def order_csv
-    # TODO: validate file's presence
     @csv_data = CSV.parse(File.read(params[:movimentacao_csv], headers: true))
-    @csv_data = @csv_data.sort { |a, b| a[1].to_date <=> b[1].to_date } # Sort CSV by its date
+
+    # Sort CSV by its date
+    @csv_data = @csv_data.sort { |a, b| a[1].to_date <=> b[1].to_date }
   end
 
   def create_from_csv
     @csv_data.each do |row|
-      # TODO: validate whether the row has 5 fields
-      # TODO: check for validation errors
-      storage = LocalArmazenamento.find_by(nome: row[0]) || LocalArmazenamento.create(nome: row[0])
-      product = Produto.find_by(nome: row[3]) || Produto.create(nome: row[3])
+      @error_messages << 'Cada linha do CSV deve conter 5 colunas de dados.' unless row.length == 5
 
-      movement = Movimentacao.create(
-        produto: product,
-        local_armazenamento: storage,
-        data: row[1].to_date,
-        tipo: row[2],
-        quantidade: row[4]
-      )
+      storage = create_local_armazenamento row[0]
+      next unless storage.valid?
+
+      product = create_produto row[3]
+      next unless product.valid?
+
+      create_movimentacao product, storage, row[1], row[2], row[4]
     end
+  end
+
+  def create_local_armazenamento(nome)
+    storage = LocalArmazenamento.find_by(nome: nome)
+
+    # Create Storage if it doesn't exist
+    storage ||= LocalArmazenamento.create(nome: nome)
+    @error_messages += storage.errors.full_messages unless storage.valid?
+
+    storage
+  end
+
+  def create_produto(nome)
+    product = Produto.find_by(nome: nome)
+
+    # Create Product if it doesn't exist
+    product ||= Produto.create(nome: nome)
+    @error_messages += product.errors.full_messages unless product.valid?
+
+    product
+  end
+
+  def create_movimentacao(product, storage, date, type, amount)
+    movement = Movimentacao.create(
+      produto: product,
+      local_armazenamento: storage,
+      data: date,
+      tipo: type,
+      quantidade: amount
+    )
+    @error_messages += movement.errors.full_messages unless movement.valid?
+
+    movement
   end
 end

@@ -2,10 +2,9 @@ class Movimentacao < ApplicationRecord
   belongs_to :produto
   belongs_to :local_armazenamento
 
-  validates :tipo, presence: true
-  validates :tipo, length: { maximum: 1 }
-  validates :data, presence: true
-  validates :quantidade, presence: true
+  validates :tipo, presence: { message: 'Tipo de movimentação deve ser informado.' }
+  validates :data, presence: { message: 'Data de movimentação deve ser informada.' }
+  validates :quantidade, presence: { message: 'Quantidade de produto deve ser informada.' }
 
   validate :date_must_be_within_interval,
            :allowed_type_values,

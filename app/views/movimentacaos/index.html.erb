@@ -11,50 +11,27 @@
   <h2>Locais de armazenamento</h2>
 
   <div class='stock-container'>
-    <div class='storage-container'>
-      <h2>Brasília</h2>
+    <% @armazenamento_mov.each do |armazenamento| %>
+      <div class='storage-container'>
+        <h2><%= armazenamento.first.nome %></h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Kindle Unlimited</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>Kindle Unlimited</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>Kindle Unlimited</td>
-            <td>5</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class='storage-container'>
-      <h2>São Paulo</h2>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Quantidade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Kindle Unlimited</td>
-            <td>5</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% armazenamento.first.each do |mov| %>
+              <tr>
+                <td><%= mov.product.nome %></td>
+                <td><%= mov.quantidade %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
   </div>
 </div>
